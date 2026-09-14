@@ -3,15 +3,14 @@
 - Base du projet
 ```text
 WebApp/
-│
 ├── index.html
+├── .gitignore
 ├── style.css
 ├── app.js
-│
 ├── assets/
-│   └── logo.png
-│
-├── .gitignore
+           └── .gitkeep
+├── .github/
+           └── .gitkeep
 └── README.md
 ```
 
