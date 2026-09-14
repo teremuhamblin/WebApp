@@ -1,0 +1,25 @@
+name: CI - WebApp
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📦 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🔍 Vérification structure
+        run: |
+          echo "Vérification des fichiers..."
+          test -f index.html
+          test -f style.css
+          test -f app.js
+
+      - name: ⚙️ Build statique
+        run: |
+          echo "Build terminé (projet statique)"
