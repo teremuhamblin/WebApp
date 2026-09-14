@@ -1,4 +1,7 @@
-###### README.md >> markdown 
+###### README.md >> markdown
+
+[![CI - WebApp](https://github.com/teremuhamblin/WebApp/actions/workflows/ci.yml/badge.svg)](https://github.com/teremuhamblin/WebApp/actions/workflows/ci.yml)
+
 - Mini site web fonctionnel
 
 # 📘 WebApp
