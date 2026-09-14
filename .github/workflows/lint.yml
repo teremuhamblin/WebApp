@@ -1,0 +1,27 @@
+name: Lint - WebApp
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📦 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🔎 Lint HTML
+        uses: Cyb3r-Jak3/html5validator-action@v1.0.0
+        with:
+          root: .
+
+      - name: 🔎 Lint CSS
+        run: |
+          npx stylelint "**/*.css"
+
+      - name: 🔎 Lint JS
+        run: |
+          npx eslint "**/*.js" || true
