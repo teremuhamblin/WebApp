@@ -1,6 +1,6 @@
-### STRUCTURE.md >> markdown 
+###### STRUCTURE.md >> markdown 
 # Structure
-- base du projet
+- Base du projet
 ```text
 WebApp/
 │
