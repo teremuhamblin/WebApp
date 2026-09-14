@@ -1,0 +1,13 @@
+###### CODEOWNERS
+# Attribution
+- responsabilités sur le projet WebApp
+
+### Propriétaire principal
+@teremuhamblin 
+
+### Sous-dossiers tactiques
+/assets/        @teremuhamblin
+
+### Sous-dossiers en option 
+/docs/          @teremuhamblin 
+/app/           @teremuhamblin 
