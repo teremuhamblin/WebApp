@@ -20,10 +20,8 @@ Application web simple et open‑source.
 ### 📦 Installation
 Clone le dépôt :
 ```text
-git clone https://github.com/tonpseudo/WebApp
+git clone https://github.com/teremuhamblin/WebApp
 ```
-
-Ouvre simplement index.html dans ton navigateur.
-`
+>Ouvre simplement index.html dans ton navigateur.
 
 ---
