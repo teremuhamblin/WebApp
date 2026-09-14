@@ -8,6 +8,9 @@
 Application web simple et open‑source.
 
 ### 🚀 Fonctionnalités
+
+[![Deploy static content to Pages](https://github.com/teremuhamblin/WebApp/actions/workflows/static.yml/badge.svg)](https://github.com/teremuhamblin/WebApp/actions/workflows/static.yml)
+
 - Page HTML minimaliste
 - Bouton interactif en JavaScript
 - Style léger en CSS
