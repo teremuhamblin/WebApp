@@ -1,16 +1,16 @@
-# Rapport d’incident — WebApp
+---
+name: Bug Report
+about: Signaler un problème
+---
 
-## 📋 Description
-Décris le problème rencontré :
+# Bug
 
-## 🔍 Étapes pour reproduire
-1. ...
-2. ...
-3. ...
+## Description
+Décrivez le bug.
 
-## 🧠 Comportement attendu
-...
+## Étapes pour reproduire
+1.
+2.
+3.
 
-## 🧰 Environnement
-- OS : Android / Windows / Linux
-- Version WebApp : v1.0
+## Comportement attendu
