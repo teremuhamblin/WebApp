@@ -1,243 +1,192 @@
-/* ----------------------------------------------------------
-   WebApp — app.js v12.0 Command Center
----------------------------------------------------------- */
+:root {
+    --color-bg-light: #f7f7f7;
+    --color-bg-dark: #121212;
 
-let perfMode = false;
-let animationsEnabled = true;
-let parallaxEnabled = true;
-let glowEnabled = true;
+    --color-text-light: #222;
+    --color-text-dark: #eaeaea;
 
-let lastScroll = 0;
-let lastFrameTime = performance.now();
-let fps = 0;
+    --color-primary: #0066ff;
+    --color-primary-hover: #0050cc;
+    --color-primary-glow: rgba(0, 102, 255, 0.35);
 
-/* ----------------------------------------------------------
-   Utilitaires
----------------------------------------------------------- */
+    --color-panel-bg: rgba(255,255,255,0.9);
+    --color-panel-bg-dark: rgba(30,30,30,0.95);
 
-function log(message) {
-    const logConsole = document.getElementById("log-console");
-    if (!logConsole) return;
-    const line = document.createElement("div");
-    line.textContent = `[LOG] ${message}`;
-    logConsole.appendChild(line);
-    logConsole.scrollTop = logConsole.scrollHeight;
+    --radius: 12px;
+    --transition: 0.3s ease;
+    --shadow-soft: 0 6px 18px rgba(0,0,0,0.15);
+    --shadow-strong: 0 10px 28px rgba(0,0,0,0.25);
 }
 
-/* ----------------------------------------------------------
-   1. Animation d’apparition globale
----------------------------------------------------------- */
+/* Base */
 
-document.addEventListener("DOMContentLoaded", () => {
-    document.body.style.opacity = "0";
-    document.body.style.transition = "opacity 1.2s ease";
+body {
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #ffffff, #e3e3e3);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: var(--color-text-light);
+    transition: background var(--transition), color var(--transition), transform 0.2s ease;
+}
 
-    setTimeout(() => {
-        document.body.style.opacity = "1";
-        orchestratedIntro();
-        log("WebApp initialisée (v12.0 Command Center).");
-    }, 100);
-});
+body.dark-mode {
+    background: radial-gradient(circle at top, #1f1f1f, #050505);
+    color: var(--color-text-dark);
+}
 
-/* ----------------------------------------------------------
-   2. Orchestration d’entrée
----------------------------------------------------------- */
+/* Accessibilité : réduction des animations */
 
-function orchestratedIntro() {
-    const header = document.querySelector("header");
-    const btns = document.querySelectorAll("button");
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
 
-    if (header) {
-        header.style.transform = "translateY(-40px)";
-        header.style.opacity = "0";
+/* Header */
 
-        setTimeout(() => {
-            header.style.transition = "all 1s ease";
-            header.style.transform = "translateY(0)";
-            header.style.opacity = "1";
-        }, 200);
+header {
+    background: rgba(34,34,34,0.9);
+    color: white;
+    padding: 40px 0 30px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 1.3px;
+    border-bottom: 2px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(14px);
+    box-shadow: var(--shadow-strong);
+    transition: background var(--transition), color var(--transition), opacity var(--transition), transform 0.3s ease;
+}
+
+header p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+
+/* Main */
+
+main {
+    padding: 30px 10px 50px;
+}
+
+/* Buttons */
+
+button {
+    padding: 14px 26px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 8px;
+    border: none;
+    border-radius: var(--radius);
+    background: var(--color-primary);
+    color: white;
+    font-weight: 600;
+    box-shadow: var(--shadow-soft);
+    transition: background var(--transition), transform 0.2s ease, box-shadow var(--transition), opacity 0.2s ease;
+}
+
+button:hover {
+    background: var(--color-primary-hover);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-strong);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-soft);
+}
+
+button:focus-visible {
+    outline: 3px solid var(--color-primary-glow);
+    outline-offset: 4px;
+}
+
+/* Command Center */
+
+.command-center {
+    max-width: 1100px;
+    margin: 40px auto 0;
+    text-align: left;
+}
+
+.command-center h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.cc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.cc-panel {
+    background: var(--color-panel-bg);
+    border-radius: var(--radius);
+    padding: 18px 16px;
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(10px);
+    transition: background var(--transition), box-shadow var(--transition), transform 0.2s ease;
+}
+
+body.dark-mode .cc-panel {
+    background: var(--color-panel-bg-dark);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.6);
+}
+
+.cc-panel h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.05rem;
+}
+
+/* Logs */
+
+.log-console {
+    height: 140px;
+    background: rgba(0,0,0,0.06);
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 0.85rem;
+    overflow-y: auto;
+    font-family: "Courier New", monospace;
+}
+
+body.dark-mode .log-console {
+    background: rgba(0,0,0,0.5);
+    color: #eaeaea;
+}
+
+/* Noscript */
+
+.noscript-warning {
+    background: #ffcc00;
+    color: #222;
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+
+@media (max-width: 800px) {
+    .cc-grid {
+        grid-template-columns: 1fr;
     }
 
-    btns.forEach((btn, i) => {
-        btn.style.transform = "translateY(40px)";
-        btn.style.opacity = "0";
-
-        setTimeout(() => {
-            btn.style.transition = "all 0.9s ease";
-            btn.style.transform = "translateY(0)";
-            btn.style.opacity = "1";
-        }, 400 + i * 150);
-    });
+    .command-center {
+        padding: 0 10px;
+    }
 }
 
-/* ----------------------------------------------------------
-   3. FPS & scroll speed (Command Center)
----------------------------------------------------------- */
-
-function updateStats() {
-    const now = performance.now();
-    const delta = now - lastFrameTime;
-    fps = Math.round(1000 / delta);
-    lastFrameTime = now;
-
-    const fpsDisplay = document.getElementById("fps-display");
-    if (fpsDisplay) fpsDisplay.textContent = fps;
-
-    const scrollSpeedDisplay = document.getElementById("scroll-speed-display");
-    if (scrollSpeedDisplay) {
-        const speed = Math.abs(window.scrollY - lastScroll);
-        scrollSpeedDisplay.textContent = speed.toFixed(0);
-        lastScroll = window.scrollY;
+@media (max-width: 600px) {
+    header {
+        padding: 30px 0 20px;
+        font-size: 1.3rem;
     }
 
-    requestAnimationFrame(updateStats);
-}
-requestAnimationFrame(updateStats);
-
-/* ----------------------------------------------------------
-   4. Parallax & glassmorphism dynamique
----------------------------------------------------------- */
-
-window.addEventListener("scroll", () => {
-    if (parallaxEnabled) {
-        const speed = 0.15;
-        document.body.style.backgroundPositionY = `-${window.scrollY * speed}px`;
+    button {
+        font-size: 15px;
+        padding: 12px 20px;
     }
-
-    const header = document.querySelector("header");
-    if (header) {
-        const scrollY = window.scrollY;
-        header.style.backdropFilter = `blur(${Math.min(14 + scrollY / 40, 30)}px)`;
-        header.style.opacity = `${Math.max(0.85, 1 - scrollY / 800)}`;
-    }
-
-    if (animationsEnabled) {
-        const buttons = document.querySelectorAll("button");
-        const speed = Math.abs(window.scrollY - lastScroll);
-        buttons.forEach(btn => {
-            btn.style.transform = `scale(${1 + speed / 2000})`;
-        });
-        lastScroll = window.scrollY;
-    }
-});
-
-/* ----------------------------------------------------------
-   5. Glow dynamique sur les boutons
----------------------------------------------------------- */
-
-const buttons = document.querySelectorAll("button");
-
-buttons.forEach(btn => {
-    btn.addEventListener("mousemove", (e) => {
-        if (!glowEnabled) return;
-
-        const rect = btn.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        btn.style.boxShadow = `
-            0 6px 18px rgba(0,0,0,0.25),
-            0 0 18px rgba(0, 102, 255, 0.45),
-            ${x / 10}px ${y / 10}px 22px rgba(0, 102, 255, 0.35)
-        `;
-    });
-
-    btn.addEventListener("mouseleave", () => {
-        btn.style.boxShadow = "0 6px 18px rgba(0,0,0,0.25)";
-    });
-});
-
-/* ----------------------------------------------------------
-   6. Micro‑animations selon mouvement
----------------------------------------------------------- */
-
-let lastX = 0;
-let lastY = 0;
-
-window.addEventListener("mousemove", (e) => {
-    if (!animationsEnabled) return;
-
-    const dx = Math.abs(e.clientX - lastX);
-    const dy = Math.abs(e.clientY - lastY);
-    const movement = dx + dy;
-
-    document.body.style.transform = `translateY(${movement / 80}px)`;
-
-    lastX = e.clientX;
-    lastY = e.clientY;
-});
-
-/* ----------------------------------------------------------
-   7. Command Center — contrôles
----------------------------------------------------------- */
-
-const toggleThemeBtn = document.getElementById("toggle-theme");
-const togglePerfBtn = document.getElementById("toggle-perf");
-const toggleAnimBtn = document.getElementById("toggle-animations");
-const toggleParallaxBtn = document.getElementById("toggle-parallax");
-const toggleGlowBtn = document.getElementById("toggle-glow");
-const perfStatus = document.getElementById("perf-status");
-
-if (toggleThemeBtn) {
-    toggleThemeBtn.addEventListener("click", () => {
-        document.body.classList.toggle("dark-mode");
-        log("Thème basculé.");
-    });
 }
-
-if (togglePerfBtn) {
-    togglePerfBtn.addEventListener("click", () => {
-        perfMode = !perfMode;
-        if (perfStatus) perfStatus.textContent = perfMode ? "ON" : "OFF";
-
-        if (perfMode) {
-            document.body.style.transition = "none";
-            document.querySelectorAll("button").forEach(btn => btn.style.transition = "none");
-            animationsEnabled = false;
-            parallaxEnabled = false;
-            glowEnabled = false;
-            log("Mode performance ACTIVÉ.");
-        } else {
-            document.body.style.transition = "opacity 1.2s ease, transform 0.2s ease";
-            document.querySelectorAll("button").forEach(btn => btn.style.transition = "all 0.3s ease");
-            animationsEnabled = true;
-            parallaxEnabled = true;
-            glowEnabled = true;
-            log("Mode performance DÉSACTIVÉ.");
-        }
-    });
-}
-
-if (toggleAnimBtn) {
-    toggleAnimBtn.addEventListener("click", () => {
-        animationsEnabled = !animationsEnabled;
-        log(`Animations ${animationsEnabled ? "activées" : "désactivées"}.`);
-    });
-}
-
-if (toggleParallaxBtn) {
-    toggleParallaxBtn.addEventListener("click", () => {
-        parallaxEnabled = !parallaxEnabled;
-        log(`Parallax ${parallaxEnabled ? "activé" : "désactivé"}.`);
-    });
-}
-
-if (toggleGlowBtn) {
-    toggleGlowBtn.addEventListener("click", () => {
-        glowEnabled = !glowEnabled;
-        log(`Glow dynamique ${glowEnabled ? "activé" : "désactivé"}.`);
-    });
-}
-
-/* ----------------------------------------------------------
-   8. Raccourcis clavier
----------------------------------------------------------- */
-
-window.addEventListener("keydown", (e) => {
-    if (e.key === "p") {
-        togglePerfBtn && togglePerfBtn.click();
-    }
-    if (e.key === "t") {
-        toggleThemeBtn && toggleThemeBtn.click();
-    }
-});
