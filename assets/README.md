@@ -48,3 +48,47 @@ assets/
 >WebApp — Tactical Web Environment
 
 ---
+
+### 🔮 Icônes SVG
+- WebApp (Style Néon)
+Ce dossier contient les icônes SVG utilisées dans l’interface de WebApp, version 12.0+, avec un style néon futuriste cohérent avec l’UI cyber.
+
+### 📁 Fichiers
+- glow.svg — icône d’effet lumineux / aura
+- perf.svg — icône de performance / vitesse
+- theme.svg — icône de gestion de thème
+- parallax.svg — icône d’effet parallax / profondeur
+
+### 🎨 Style
+- Format : SVG optimisé
+- Couleurs : héritées du CSS via currentColor
+- Taille recommandée : 24×24 ou 32×32
+- Compatible animations CSS (glow, pulse, rotate)
+- Style néon : contours nets + possibilité d’ajouter un glow via filter: drop-shadow()
+
+### 🔧 Utilisation
+- En balise <img>
+```html
+<img src="assets/icons/glow.svg" alt="Glow Icon" />
+```
+
+- Inline
+```html
+<svg class="icon neon">
+  <!-- contenu de l’icône -->
+</svg>
+```
+
+### ✨ Effet Glow CSS recommandé
+```css
+.icon.neon {
+  filter: drop-shadow(0 0 6px #00eaff) drop-shadow(0 0 12px #00eaff);
+}
+```
+
+### 🛠️ Notes
+- Garder viewBox="0 0 24 24"
+- Utiliser stroke="currentColor" ou fill="currentColor"
+- Éviter les couleurs inline pour garder la cohérence du thème.
+
+---
