@@ -2,20 +2,50 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebApp</title>
+    <title>WebApp Command Center</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <header>
-        <h1>Bienvenue sur WebApp</h1>
-        <p>Une mini application web simple et propre.</p>
+        <h1>WebApp — Command Center</h1>
+        <p>Contrôle avancé de l’interface, des performances et des effets.</p>
     </header>
 
     <main>
-        <button id="actionBtn">Clique-moi</button>
-        <p id="result"></p>
+        <section class="main-actions">
+            <button id="primary-action">Action principale</button>
+        </section>
+
+        <section id="command-center" class="command-center">
+            <h2>Command Center</h2>
+
+            <div class="cc-grid">
+                <div class="cc-panel">
+                    <h3>Thème & Mode</h3>
+                    <button id="toggle-theme">Basculer thème (clair/sombre)</button>
+                    <button id="toggle-perf">Mode performance (ON/OFF)</button>
+                </div>
+
+                <div class="cc-panel">
+                    <h3>Effets visuels</h3>
+                    <button id="toggle-animations">Animations (ON/OFF)</button>
+                    <button id="toggle-parallax">Parallax (ON/OFF)</button>
+                    <button id="toggle-glow">Glow dynamique (ON/OFF)</button>
+                </div>
+
+                <div class="cc-panel">
+                    <h3>Statut système</h3>
+                    <p>FPS estimé : <span id="fps-display">--</span></p>
+                    <p>Scroll speed : <span id="scroll-speed-display">--</span></p>
+                    <p>Perf mode : <span id="perf-status">OFF</span></p>
+                </div>
+
+                <div class="cc-panel">
+                    <h3>Logs</h3>
+                    <div id="log-console" class="log-console"></div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <script src="app.js"></script>
