@@ -1,0 +1,9 @@
+{
+  "name": "WebApp Command Center",
+  "short_name": "WebAppCC",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f7f7",
+  "theme_color": "#0066ff",
+  "icons": []
+}
