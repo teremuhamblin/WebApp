@@ -173,6 +173,4 @@ La WebApp v12.0 est désormais :
 - prête pour PWA  
 - prête pour les futures versions v13.0+  
 
-`
-
 ---
