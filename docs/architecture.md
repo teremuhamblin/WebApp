@@ -1,35 +1,12 @@
-###### architecture.md >> markdown 
-# 🏗️ WebApp
+# Architecture
+- WebApp v12.0
 
-Ce document décrit la structure interne du projet.
+### Structure
+- index.html : structure + Command Center
+- style.css : design system + dark mode + responsive
+- app.js : logique Command Center + animations + sécurité
 
-📁 Arborescence
-`
-WebApp/
-├── index.html
-├── style.css
-├── app.js
-├── assets/
-│   ├── logo/
-│   ├── icons/
-│   ├── backgrounds/
-│   ├── ui/
-│   └── misc/
-└── docs/
-`
-
-🔍 Détails
-- index.html : point d’entrée de l’application  
-- style.css : styles globaux  
-- app.js : logique interactive  
-- assets/ : ressources visuelles  
-- docs/ : documentation tactique  
-- .github/ : workflows et templates  
-
-🧠 Principes
-- Séparation claire des responsabilités  
-- Structure évolutive  
-- Documentation intégrée  
-`
-
----
+### Flux
+- DOMContentLoaded → intro orchestrée
+- Command Center → toggles
+- Stats → FPS + scroll speed
