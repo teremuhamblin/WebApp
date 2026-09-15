@@ -1,13 +1,13 @@
-# 📜 Changelog — WebApp
+# Changelog
+- WebApp v12.0
 
-## v1.0.0
-- Création du projet WebApp
-- Ajout de `index.html`, `style.css`, `app.js`
-- Ajout du dossier `assets/`
-- Ajout du dossier `docs/`
-- Mise en place des workflows GitHub Actions
-
-## v1.1.0 (prévu)
-- Ajout d’icônes tactiques
-- Amélioration du design CSS
-- Documentation étendue
+### v12.0
+- Ajout Command Center
+- Mode performance
+- Dark mode
+- Parallax
+- Glow dynamique
+- Logs système
+- FPS monitor
+- CSP ajoutée
+- Accessibilité renforcée
