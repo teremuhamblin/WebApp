@@ -1,7 +1,3 @@
-/* ----------------------------------------------------------
-   DESIGN SYSTEM — v12.0 Command Center
----------------------------------------------------------- */
-
 :root {
     --color-bg-light: #f7f7f7;
     --color-bg-dark: #121212;
@@ -13,8 +9,8 @@
     --color-primary-hover: #0050cc;
     --color-primary-glow: rgba(0, 102, 255, 0.35);
 
-    --color-panel-bg: rgba(255,255,255,0.85);
-    --color-panel-bg-dark: rgba(30,30,30,0.9);
+    --color-panel-bg: rgba(255,255,255,0.9);
+    --color-panel-bg-dark: rgba(30,30,30,0.95);
 
     --radius: 12px;
     --transition: 0.3s ease;
@@ -22,9 +18,7 @@
     --shadow-strong: 0 10px 28px rgba(0,0,0,0.25);
 }
 
-/* ----------------------------------------------------------
-   BASE
----------------------------------------------------------- */
+/* Base */
 
 body {
     font-family: Arial, sans-serif;
@@ -36,16 +30,21 @@ body {
     transition: background var(--transition), color var(--transition), transform 0.2s ease;
 }
 
-/* Dark mode */
-
 body.dark-mode {
     background: radial-gradient(circle at top, #1f1f1f, #050505);
     color: var(--color-text-dark);
 }
 
-/* ----------------------------------------------------------
-   HEADER
----------------------------------------------------------- */
+/* Accessibilité : réduction des animations */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* Header */
 
 header {
     background: rgba(34,34,34,0.9);
@@ -55,10 +54,8 @@ header {
     font-weight: 600;
     letter-spacing: 1.3px;
     border-bottom: 2px solid rgba(255,255,255,0.08);
-
     backdrop-filter: blur(14px);
     box-shadow: var(--shadow-strong);
-
     transition: background var(--transition), color var(--transition), opacity var(--transition), transform 0.3s ease;
 }
 
@@ -67,17 +64,13 @@ header p {
     opacity: 0.85;
 }
 
-/* ----------------------------------------------------------
-   MAIN
----------------------------------------------------------- */
+/* Main */
 
 main {
     padding: 30px 10px 50px;
 }
 
-/* ----------------------------------------------------------
-   BUTTONS — Ultra Premium
----------------------------------------------------------- */
+/* Buttons */
 
 button {
     padding: 14px 26px;
@@ -104,14 +97,12 @@ button:active {
     box-shadow: var(--shadow-soft);
 }
 
-button:focus {
+button:focus-visible {
     outline: 3px solid var(--color-primary-glow);
     outline-offset: 4px;
 }
 
-/* ----------------------------------------------------------
-   COMMAND CENTER
----------------------------------------------------------- */
+/* Command Center */
 
 .command-center {
     max-width: 1100px;
@@ -129,8 +120,6 @@ button:focus {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
 }
-
-/* Panels */
 
 .cc-panel {
     background: var(--color-panel-bg);
@@ -169,17 +158,16 @@ body.dark-mode .log-console {
     color: #eaeaea;
 }
 
-/* Statut */
+/* Noscript */
 
-#fps-display,
-#scroll-speed-display,
-#perf-status {
-    font-weight: 700;
+.noscript-warning {
+    background: #ffcc00;
+    color: #222;
+    padding: 10px;
+    font-size: 0.9rem;
 }
 
-/* ----------------------------------------------------------
-   RESPONSIVE
----------------------------------------------------------- */
+/* Responsive */
 
 @media (max-width: 800px) {
     .cc-grid {
@@ -198,7 +186,6 @@ body.dark-mode .log-console {
     }
 
     button {
-        width: auto;
         font-size: 15px;
         padding: 12px 20px;
     }
