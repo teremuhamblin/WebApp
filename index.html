@@ -3,9 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>WebApp Command Center</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSP de base (à renforcer côté serveur) -->
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+
+    <meta name="description" content="WebApp Command Center avec contrôle des effets, performances et thème.">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <noscript>
+        <div class="noscript-warning">
+            Cette WebApp nécessite JavaScript pour fonctionner correctement.
+        </div>
+    </noscript>
+
     <header>
         <h1>WebApp — Command Center</h1>
         <p>Contrôle avancé de l’interface, des performances et des effets.</p>
@@ -16,7 +30,7 @@
             <button id="primary-action">Action principale</button>
         </section>
 
-        <section id="command-center" class="command-center">
+        <section id="command-center" class="command-center" aria-label="Panneau de contrôle WebApp">
             <h2>Command Center</h2>
 
             <div class="cc-grid">
@@ -42,12 +56,12 @@
 
                 <div class="cc-panel">
                     <h3>Logs</h3>
-                    <div id="log-console" class="log-console"></div>
+                    <div id="log-console" class="log-console" aria-live="polite"></div>
                 </div>
             </div>
         </section>
     </main>
 
-    <script src="app.js"></script>
+    <script src="app.js" defer></script>
 </body>
 </html>
