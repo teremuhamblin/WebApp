@@ -1,11 +1,12 @@
-# Politique de sécurité — WebApp
+# Politique de Sécurité
+- WebApp v12.0
 
-## 🛡️ Signalement de vulnérabilité
-Si tu découvres une faille :
-1. Ne la publie pas publiquement.
-2. Contacte le mainteneur principal via issue privée.
-3. Fournis les détails techniques (version, impact, reproduction).
+### Signalement de vulnérabilité
+Les vulnérabilités doivent être signalées via un message privé GitHub.
 
-## 🔐 Bonnes pratiques
-- Ne jamais inclure de données sensibles dans le code.
-- Vérifie les dépendances avant ajout.
+### Bonnes pratiques intégrées
+- CSP côté client
+- Aucun `eval`
+- Aucun code dynamique non contrôlé
+- Gestion des erreurs JS
+- Respect de `prefers-reduced-motion`
