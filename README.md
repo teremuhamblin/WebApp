@@ -16,6 +16,15 @@ Application web simple et open‑source.
 - Style léger en CSS
 - Structure GitHub professionnelle
 
+### 📁 Command Center
+- Thème clair/sombre
+- Mode performance (désactive animations, parallax, glow)
+- Statut FPS & vitesse de scroll
+- Logs temps réel dans le Command Center
+- Contrôles :
+   - Touche `p` : bascule mode performance
+   - Touche `t` : bascule thème
+
 ### 📁 Structure
 - index.html — page principale
 - style.css — styles
