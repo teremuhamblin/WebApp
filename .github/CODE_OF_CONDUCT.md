@@ -1,12 +1,13 @@
-# Code de conduite — WebApp
+# Code de Conduite
+- WebApp v12.0
 
-## 🎯 Objectif
-Créer un environnement respectueux, professionnel et collaboratif.
+>Ce projet adopte un environnement respectueux, ouvert et collaboratif.
 
-## 📜 Règles
-- Respect mutuel entre contributeurs.
-- Pas de propos discriminatoires ou agressifs.
-- Les critiques doivent être constructives.
+### Engagements
+- Respect mutuel
+- Communication claire
+- Aucune discrimination
+- Aucune violence verbale
 
-## 🚨 Signalement
-Tout comportement inapproprié peut être signalé via une issue dédiée.
+### Signalement
+Toute violation peut être signalée via les issues GitHub.
