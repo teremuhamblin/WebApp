@@ -1,10 +1,10 @@
-# Support WebApp
+# Support
+- WebApp v12.0
 
-## 📬 Contact
-Pour toute question ou problème :
-- Ouvre une **issue** sur GitHub.
-- Mentionne le type de problème (bug, amélioration, documentation).
+### Demandes d’aide
+Utilisez les issues GitHub.
 
-## 🧭 Ressources
-- [README principal](../README.md)
-- [Documentation des assets](../assets/README.md)
+### Types de support
+- Bugs
+- Améliorations
+- Questions techniques
