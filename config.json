@@ -1,0 +1,34 @@
+{
+  "bisat_core_version": "13.2",
+  "system": "BISAT Command Center",
+  "author": "Teremu",
+  "modes": {
+    "hud": {
+      "enabled": true,
+      "default": "online"
+    },
+    "cyberops": {
+      "enabled": true,
+      "default": "idle"
+    },
+    "stealth": {
+      "enabled": true,
+      "default": "off"
+    },
+    "secureops": {
+      "enabled": true,
+      "level": "military"
+    }
+  },
+  "ui": {
+    "theme": "tactical",
+    "accent_color": "#00ffa0",
+    "background": "#0b0f14"
+  },
+  "paths": {
+    "modules": "/modules/",
+    "secureops": "/secureops/",
+    "logs": "/logs/",
+    "config": "/config/"
+  }
+}
