@@ -1,0 +1,170 @@
+/* ----------------------------------------------------------
+   BISAT — theme v13.0 Command Center / CyberOps / Stealth
+---------------------------------------------------------- */
+
+:root {
+    --accent: #00ffa0;
+    --accent-cyber: #00e0ff;
+    --accent-stealth: #888;
+    --bg-dark: #0b0f14;
+    --bg-panel: #11161d;
+    --hud-bg: rgba(0, 255, 160, 0.08);
+    --hud-border: rgba(0, 255, 160, 0.25);
+    --cyber-bg: rgba(0, 224, 255, 0.08);
+    --cyber-border: rgba(0, 224, 255, 0.25);
+    --stealth-bg: rgba(80, 80, 80, 0.08);
+    --stealth-border: rgba(80, 80, 80, 0.25);
+    --text: #e8e8e8;
+    --text-dim: #9aa0a6;
+}
+
+/* Global */
+body {
+    background: var(--bg-dark);
+    color: var(--text);
+    font-family: "Consolas", "Roboto Mono", monospace;
+    transition: background 0.4s ease, color 0.4s ease;
+    overflow-x: hidden;
+}
+
+/* Dark mode */
+body.dark-mode {
+    background: #000;
+    color: #fff;
+}
+
+/* ----------------------------------------------------------
+   Buttons
+---------------------------------------------------------- */
+button {
+    background: #141a22;
+    color: var(--text);
+    border: 1px solid #1f2630;
+    padding: 12px 22px;
+    margin: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    border-color: var(--accent);
+}
+
+/* ----------------------------------------------------------
+   Command Panel (left tactical panel)
+---------------------------------------------------------- */
+#command-panel {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 260px;
+    height: 100vh;
+    background: var(--bg-panel);
+    border-right: 1px solid #1f2630;
+    padding: 20px;
+    box-shadow: 4px 0 12px rgba(0,0,0,0.4);
+    z-index: 999;
+}
+
+#command-panel h2 {
+    margin-top: 0;
+    font-size: 18px;
+    color: var(--accent);
+}
+
+/* ----------------------------------------------------------
+   HUD Overlay
+---------------------------------------------------------- */
+#hud-overlay {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    width: 260px;
+    padding: 16px;
+    border-radius: 8px;
+    background: var(--hud-bg);
+    border: 1px solid var(--hud-border);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 18px rgba(0,255,160,0.25);
+    z-index: 999;
+    transition: opacity 0.4s ease;
+}
+
+#hud-overlay h3 {
+    margin-top: 0;
+    color: var(--accent);
+    font-size: 16px;
+}
+
+.hud-item {
+    margin: 6px 0;
+    font-size: 14px;
+    color: var(--text-dim);
+}
+
+.hud-value {
+    float: right;
+    color: var(--accent);
+}
+
+/* ----------------------------------------------------------
+   CyberOps Mode
+---------------------------------------------------------- */
+body.cyber-mode #hud-overlay {
+    background: var(--cyber-bg);
+    border-color: var(--cyber-border);
+    box-shadow: 0 0 18px rgba(0,224,255,0.25);
+}
+
+body.cyber-mode #hud-overlay h3,
+body.cyber-mode .hud-value {
+    color: var(--accent-cyber);
+}
+
+body.cyber-mode #command-panel h2 {
+    color: var(--accent-cyber);
+}
+
+/* ----------------------------------------------------------
+   Stealth Mode
+---------------------------------------------------------- */
+body.stealth-mode #hud-overlay {
+    background: var(--stealth-bg);
+    border-color: var(--stealth-border);
+    box-shadow: none;
+}
+
+body.stealth-mode .hud-value {
+    color: var(--accent-stealth);
+}
+
+body.stealth-mode #command-panel h2 {
+    color: var(--accent-stealth);
+}
+
+/* ----------------------------------------------------------
+   Header
+---------------------------------------------------------- */
+header {
+    position: sticky;
+    top: 0;
+    padding: 20px;
+    background: rgba(10, 14, 20, 0.6);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #1f2630;
+    z-index: 900;
+}
+
+/* ----------------------------------------------------------
+   Log Console
+---------------------------------------------------------- */
+#log-console {
+    background: #0d1218;
+    border: 1px solid #1f2630;
+    padding: 10px;
+    height: 180px;
+    overflow-y: auto;
+    font-size: 13px;
+    margin-top: 20px;
+}
