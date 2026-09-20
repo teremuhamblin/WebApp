@@ -1,2 +1,53 @@
+# ----------------------------------------------------------
+# BISAT — robots.txt v13.2
+# Command Center / HUD / CyberOps / Stealth / SecureOps
+# ----------------------------------------------------------
+
 User-agent: *
 Allow: /
+
+# ----------------------------------------------------------
+# Sitemaps (PWA + Command Center)
+# ----------------------------------------------------------
+Sitemap: https://example.com/sitemap.xml
+Sitemap: https://example.com/sitemap-app.xml
+
+# ----------------------------------------------------------
+# BISAT Tactical WebCore — Directives
+# ----------------------------------------------------------
+
+# Autoriser l’indexation du Command Center
+Allow: /command-center/
+Allow: /hud-overlay/
+
+# Autoriser les assets tactiques
+Allow: /icons/
+Allow: /screenshots/
+
+# ----------------------------------------------------------
+# SecureOps — Protection légère
+# ----------------------------------------------------------
+
+# Empêcher l’indexation des fichiers sensibles
+Disallow: /secureops/
+Disallow: /modules/
+Disallow: /internal/
+Disallow: /config/
+
+# Empêcher l’indexation des logs
+Disallow: /logs/
+
+# Empêcher l’indexation des fichiers système
+Disallow: /service-worker.js
+Disallow: /manifest.json
+Disallow: /package.json
+
+# ----------------------------------------------------------
+# BISAT OS v14.0 — Préparation
+# ----------------------------------------------------------
+
+# Répertoires réservés aux modules tactiques
+Disallow: /tactical/
+Disallow: /thermal/
+Disallow: /night-ops/
+Disallow: /radar/
