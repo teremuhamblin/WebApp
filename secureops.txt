@@ -1,0 +1,52 @@
+# ----------------------------------------------------------
+# BISAT SecureOps — v13.2
+# Anti-scraping / Anti-tampering / Anti-indexation
+# ----------------------------------------------------------
+
+# Bloquer les bots agressifs
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DataForSeoBot
+Disallow: /
+
+# Bloquer les scrapers génériques
+User-agent: python-requests
+Disallow: /
+
+User-agent: curl
+Disallow: /
+
+User-agent: wget
+Disallow: /
+
+# Empêcher l’accès aux zones sensibles BISAT
+Disallow: /secureops/
+Disallow: /internal/
+Disallow: /modules/
+Disallow: /config/
+Disallow: /logs/
+
+# Empêcher l’accès aux fichiers système
+Disallow: /service-worker.js
+Disallow: /manifest.json
+Disallow: /package.json
+
+# Protection légère contre les crawlers IA
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+# Zones tactiques réservées BISAT OS v14.0
+Disallow: /thermal/
+Disallow: /night-ops/
+Disallow: /radar/
+Disallow: /tactical/
