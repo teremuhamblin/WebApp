@@ -1,60 +1,85 @@
-/* WebApp — app.js v12.0 Command Center sécurisé */
+/* ----------------------------------------------------------
+   WebApp — app.js v13.0 Command Center / CyberOps HUD
+---------------------------------------------------------- */
 
-let perfMode = false;
-let animationsEnabled = true;
-let parallaxEnabled = true;
-let glowEnabled = true;
+const state = {
+    perfMode: false,
+    animations: true,
+    parallax: true,
+    glow: true,
+    cyberOps: false,
+    stealthMode: false,
+    lastScroll: 0,
+    lastFrameTime: performance.now(),
+    fps: 0,
+    lastMouse: { x: 0, y: 0 },
+    hudVisible: true
+};
 
-let lastScroll = 0;
-let lastFrameTime = performance.now();
-let fps = 0;
+/* ----------------------------------------------------------
+   Cache DOM
+---------------------------------------------------------- */
+const dom = {
+    body: document.body,
+    logConsole: document.getElementById("log-console"),
+    header: document.querySelector("header"),
+    buttons: () => document.querySelectorAll("button"),
+    fpsDisplay: document.getElementById("fps-display"),
+    scrollSpeedDisplay: document.getElementById("scroll-speed-display"),
+    hud: document.getElementById("hud-overlay"),
+    hudStatus: document.getElementById("hud-status"),
+    cyberStatus: document.getElementById("cyber-status"),
+    stealthStatus: document.getElementById("stealth-status"),
+    perfStatus: document.getElementById("perf-status"),
+    sidePanel: document.getElementById("command-panel")
+};
 
-/* Log sécurisé */
-
+/* ----------------------------------------------------------
+   Log sécurisé
+---------------------------------------------------------- */
 function log(message) {
+    if (!dom.logConsole) return;
     try {
-        const logConsole = document.getElementById("log-console");
-        if (!logConsole) return;
         const line = document.createElement("div");
-        line.textContent = `[LOG] ${message}`;
-        logConsole.appendChild(line);
-        logConsole.scrollTop = logConsole.scrollHeight;
+        const time = new Date().toLocaleTimeString();
+        line.textContent = `[${time}] ${message}`;
+        dom.logConsole.appendChild(line);
+        dom.logConsole.scrollTop = dom.logConsole.scrollHeight;
     } catch (e) {
         console.warn("Log error:", e);
     }
 }
 
-/* Fade-in + intro */
-
+/* ----------------------------------------------------------
+   DOMContentLoaded + intro
+---------------------------------------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
-    document.body.style.opacity = "0";
-    document.body.style.transition = "opacity 1.2s ease";
+    dom.body.style.opacity = "0";
+    dom.body.style.transition = "opacity 1.2s ease";
 
-    setTimeout(() => {
-        document.body.style.opacity = "1";
+    requestAnimationFrame(() => {
+        dom.body.style.opacity = "1";
         orchestratedIntro();
         initCommandCenter();
+        initHUD();
         updateStats();
-        log("WebApp initialisée (v12.0 Command Center).");
-    }, 100);
+        log("WebApp initialisée (v13.0 Command Center / CyberOps HUD).");
+    });
 });
 
 function orchestratedIntro() {
-    const header = document.querySelector("header");
-    const btns = document.querySelectorAll("button");
-
-    if (header) {
-        header.style.transform = "translateY(-40px)";
-        header.style.opacity = "0";
+    if (dom.header) {
+        dom.header.style.transform = "translateY(-40px)";
+        dom.header.style.opacity = "0";
 
         setTimeout(() => {
-            header.style.transition = "all 1s ease";
-            header.style.transform = "translateY(0)";
-            header.style.opacity = "1";
+            dom.header.style.transition = "all 1s ease";
+            dom.header.style.transform = "translateY(0)";
+            dom.header.style.opacity = "1";
         }, 200);
     }
 
-    btns.forEach((btn, i) => {
+    dom.buttons().forEach((btn, i) => {
         btn.style.transform = "translateY(40px)";
         btn.style.opacity = "0";
 
@@ -62,79 +87,112 @@ function orchestratedIntro() {
             btn.style.transition = "all 0.9s ease";
             btn.style.transform = "translateY(0)";
             btn.style.opacity = "1";
-        }, 400 + i * 150);
+        }, 300 + i * 100);
     });
+
+    if (dom.sidePanel) {
+        dom.sidePanel.style.transform = "translateX(40px)";
+        dom.sidePanel.style.opacity = "0";
+
+        setTimeout(() => {
+            dom.sidePanel.style.transition = "all 0.8s ease";
+            dom.sidePanel.style.transform = "translateX(0)";
+            dom.sidePanel.style.opacity = "1";
+        }, 450);
+    }
 }
 
-/* Stats (FPS + scroll speed) */
+/* ----------------------------------------------------------
+   HUD tactique
+---------------------------------------------------------- */
+function initHUD() {
+    if (!dom.hud) return;
+    dom.hud.style.opacity = "0";
+    dom.hud.style.transition = "opacity 0.6s ease";
 
+    setTimeout(() => {
+        dom.hud.style.opacity = "1";
+        if (dom.hudStatus) dom.hudStatus.textContent = "ONLINE";
+    }, 500);
+}
+
+function updateHUD() {
+    if (!dom.hud) return;
+
+    if (dom.cyberStatus) dom.cyberStatus.textContent = state.cyberOps ? "ACTIVE" : "IDLE";
+    if (dom.stealthStatus) dom.stealthStatus.textContent = state.stealthMode ? "ENGAGED" : "OFF";
+    if (dom.perfStatus) dom.perfStatus.textContent = state.perfMode ? "ON" : "OFF";
+}
+
+/* ----------------------------------------------------------
+   Stats (FPS + vitesse scroll)
+---------------------------------------------------------- */
 function updateStats() {
     try {
         const now = performance.now();
-        const delta = now - lastFrameTime;
-        fps = Math.round(1000 / (delta || 1));
-        lastFrameTime = now;
+        const delta = now - state.lastFrameTime;
+        state.fps = Math.round(1000 / (delta || 1));
+        state.lastFrameTime = now;
 
-        const fpsDisplay = document.getElementById("fps-display");
-        if (fpsDisplay) fpsDisplay.textContent = fps;
+        if (dom.fpsDisplay) dom.fpsDisplay.textContent = state.fps;
 
-        const scrollSpeedDisplay = document.getElementById("scroll-speed-display");
-        if (scrollSpeedDisplay) {
-            const speed = Math.abs(window.scrollY - lastScroll);
-            scrollSpeedDisplay.textContent = speed.toFixed(0);
-            lastScroll = window.scrollY;
+        if (dom.scrollSpeedDisplay) {
+            const speed = Math.abs(window.scrollY - state.lastScroll);
+            dom.scrollSpeedDisplay.textContent = speed.toFixed(0);
+            state.lastScroll = window.scrollY;
         }
     } catch (e) {
         console.warn("Stats error:", e);
     }
 
+    updateHUD();
     requestAnimationFrame(updateStats);
 }
 
-/* Scroll effects */
-
+/* ----------------------------------------------------------
+   Effets de scroll (parallax + header dynamique)
+---------------------------------------------------------- */
 window.addEventListener("scroll", () => {
     try {
-        if (parallaxEnabled) {
-            const speed = 0.15;
-            document.body.style.backgroundPositionY = `-${window.scrollY * speed}px`;
+        const scrollY = window.scrollY;
+
+        if (state.parallax && !state.stealthMode) {
+            dom.body.style.backgroundPositionY = `-${scrollY * 0.15}px`;
         }
 
-        const header = document.querySelector("header");
-        if (header) {
-            const scrollY = window.scrollY;
-            header.style.backdropFilter = `blur(${Math.min(14 + scrollY / 40, 30)}px)`;
-            header.style.opacity = `${Math.max(0.85, 1 - scrollY / 800)}`;
+        if (dom.header) {
+            dom.header.style.backdropFilter = `blur(${Math.min(14 + scrollY / 40, 30)}px)`;
+            dom.header.style.opacity = `${Math.max(0.85, 1 - scrollY / 800)}`;
         }
 
-        if (animationsEnabled) {
-            const buttons = document.querySelectorAll("button");
-            const speed = Math.abs(window.scrollY - lastScroll);
-            buttons.forEach(btn => {
-                btn.style.transform = `scale(${1 + speed / 2000})`;
+        if (state.animations && !state.stealthMode) {
+            const speed = Math.abs(scrollY - state.lastScroll);
+            dom.buttons().forEach(btn => {
+                btn.style.transform = `scale(${1 + speed / 2200})`;
             });
-            lastScroll = window.scrollY;
         }
+
+        state.lastScroll = scrollY;
     } catch (e) {
         console.warn("Scroll error:", e);
     }
 });
 
-/* Glow dynamique */
-
-const buttons = document.querySelectorAll("button");
-
-buttons.forEach(btn => {
+/* ----------------------------------------------------------
+   Glow dynamique
+---------------------------------------------------------- */
+dom.buttons().forEach(btn => {
     btn.addEventListener("mousemove", (e) => {
-        if (!glowEnabled) return;
+        if (!state.glow || state.stealthMode) return;
+
         const rect = btn.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
         btn.style.boxShadow = `
             0 6px 18px rgba(0,0,0,0.25),
-            0 0 18px rgba(0, 102, 255, 0.45),
-            ${x / 10}px ${y / 10}px 22px rgba(0, 102, 255, 0.35)
+            0 0 18px rgba(0, 255, 160, 0.45),
+            ${x / 10}px ${y / 10}px 22px rgba(0, 255, 160, 0.35)
         `;
     });
 
@@ -143,87 +201,151 @@ buttons.forEach(btn => {
     });
 });
 
-/* Micro-animations */
-
-let lastX = 0;
-let lastY = 0;
-
+/* ----------------------------------------------------------
+   Micro-animations souris
+---------------------------------------------------------- */
 window.addEventListener("mousemove", (e) => {
-    if (!animationsEnabled) return;
+    if (!state.animations || state.stealthMode) return;
 
-    const dx = Math.abs(e.clientX - lastX);
-    const dy = Math.abs(e.clientY - lastY);
+    const dx = Math.abs(e.clientX - state.lastMouse.x);
+    const dy = Math.abs(e.clientY - state.lastMouse.y);
     const movement = dx + dy;
 
-    document.body.style.transform = `translateY(${movement / 80}px)`;
+    dom.body.style.transform = `translateY(${movement / 80}px)`;
 
-    lastX = e.clientX;
-    lastY = e.clientY;
+    state.lastMouse.x = e.clientX;
+    state.lastMouse.y = e.clientY;
 });
 
-/* Command Center */
-
+/* ----------------------------------------------------------
+   Command Center (toggles + CyberOps + Stealth)
+---------------------------------------------------------- */
 function initCommandCenter() {
-    const toggleThemeBtn = document.getElementById("toggle-theme");
-    const togglePerfBtn = document.getElementById("toggle-perf");
-    const toggleAnimBtn = document.getElementById("toggle-animations");
-    const toggleParallaxBtn = document.getElementById("toggle-parallax");
-    const toggleGlowBtn = document.getElementById("toggle-glow");
-    const perfStatus = document.getElementById("perf-status");
+    const toggleTheme = document.getElementById("toggle-theme");
+    const togglePerf = document.getElementById("toggle-perf");
+    const toggleAnim = document.getElementById("toggle-animations");
+    const toggleParallax = document.getElementById("toggle-parallax");
+    const toggleGlow = document.getElementById("toggle-glow");
+    const toggleHUD = document.getElementById("toggle-hud");
+    const toggleCyber = document.getElementById("toggle-cyberops");
+    const toggleStealth = document.getElementById("toggle-stealth");
 
-    if (toggleThemeBtn) {
-        toggleThemeBtn.addEventListener("click", () => {
-            document.body.classList.toggle("dark-mode");
+    if (toggleTheme) {
+        toggleTheme.addEventListener("click", () => {
+            dom.body.classList.toggle("dark-mode");
             log("Thème basculé.");
         });
     }
 
-    if (togglePerfBtn) {
-        togglePerfBtn.addEventListener("click", () => {
-            perfMode = !perfMode;
-            if (perfStatus) perfStatus.textContent = perfMode ? "ON" : "OFF";
+    if (togglePerf) {
+        togglePerf.addEventListener("click", () => {
+            state.perfMode = !state.perfMode;
+            if (dom.perfStatus) dom.perfStatus.textContent = state.perfMode ? "ON" : "OFF";
 
-            if (perfMode) {
-                document.body.style.transition = "none";
-                document.querySelectorAll("button").forEach(btn => btn.style.transition = "none");
-                animationsEnabled = false;
-                parallaxEnabled = false;
-                glowEnabled = false;
+            if (state.perfMode) {
+                disableTransitions();
+                disableEffects();
                 log("Mode performance ACTIVÉ.");
             } else {
-                document.body.style.transition = "opacity 1.2s ease, transform 0.2s ease";
-                document.querySelectorAll("button").forEach(btn => btn.style.transition = "all 0.3s ease");
-                animationsEnabled = true;
-                parallaxEnabled = true;
-                glowEnabled = true;
+                enableTransitions();
+                enableEffects();
                 log("Mode performance DÉSACTIVÉ.");
             }
         });
     }
 
-    if (toggleAnimBtn) {
-        toggleAnimBtn.addEventListener("click", () => {
-            animationsEnabled = !animationsEnabled;
-            log(`Animations ${animationsEnabled ? "activées" : "désactivées"}.`);
+    if (toggleAnim) {
+        toggleAnim.addEventListener("click", () => {
+            state.animations = !state.animations;
+            log(`Animations ${state.animations ? "activées" : "désactivées"}.`);
         });
     }
 
-    if (toggleParallaxBtn) {
-        toggleParallaxBtn.addEventListener("click", () => {
-            parallaxEnabled = !parallaxEnabled;
-            log(`Parallax ${parallaxEnabled ? "activé" : "désactivé"}.`);
+    if (toggleParallax) {
+        toggleParallax.addEventListener("click", () => {
+            state.parallax = !state.parallax;
+            log(`Parallax ${state.parallax ? "activé" : "désactivé"}.`);
         });
     }
 
-    if (toggleGlowBtn) {
-        toggleGlowBtn.addEventListener("click", () => {
-            glowEnabled = !glowEnabled;
-            log(`Glow dynamique ${glowEnabled ? "activé" : "désactivé"}.`);
+    if (toggleGlow) {
+        toggleGlow.addEventListener("click", () => {
+            state.glow = !state.glow;
+            log(`Glow dynamique ${state.glow ? "activé" : "désactivé"}.`);
+        });
+    }
+
+    if (toggleHUD && dom.hud) {
+        toggleHUD.addEventListener("click", () => {
+            state.hudVisible = !state.hudVisible;
+            dom.hud.style.opacity = state.hudVisible ? "1" : "0";
+            if (dom.hudStatus) dom.hudStatus.textContent = state.hudVisible ? "ONLINE" : "OFFLINE";
+            log(`HUD ${state.hudVisible ? "affiché" : "masqué"}.`);
+        });
+    }
+
+    if (toggleCyber) {
+        toggleCyber.addEventListener("click", () => {
+            state.cyberOps = !state.cyberOps;
+            dom.body.classList.toggle("cyber-mode", state.cyberOps);
+            log(`CyberOps ${state.cyberOps ? "ACTIVÉ" : "DÉSACTIVÉ"}.`);
+            updateHUD();
+        });
+    }
+
+    if (toggleStealth) {
+        toggleStealth.addEventListener("click", () => {
+            state.stealthMode = !state.stealthMode;
+            dom.body.classList.toggle("stealth-mode", state.stealthMode);
+
+            if (state.stealthMode) {
+                state.animations = false;
+                state.parallax = false;
+                state.glow = false;
+                log("Mode furtif ENGAGÉ (animations minimales, parallax OFF, glow OFF).");
+            } else {
+                state.animations = true;
+                state.parallax = true;
+                state.glow = true;
+                log("Mode furtif DÉSACTIVÉ.");
+            }
+
+            updateHUD();
         });
     }
 
     window.addEventListener("keydown", (e) => {
-        if (e.key === "p") togglePerfBtn && togglePerfBtn.click();
-        if (e.key === "t") toggleThemeBtn && toggleThemeBtn.click();
+        if (e.key === "p" && togglePerf) togglePerf.click();
+        if (e.key === "t" && toggleTheme) toggleTheme.click();
+        if (e.key === "h" && toggleHUD) toggleHUD.click();
+        if (e.key === "c" && toggleCyber) toggleCyber.click();
+        if (e.key === "s" && toggleStealth) toggleStealth.click();
     });
+}
+
+/* ----------------------------------------------------------
+   Utilitaires
+---------------------------------------------------------- */
+function disableTransitions() {
+    dom.body.style.transition = "none";
+    dom.buttons().forEach(btn => btn.style.transition = "none";
+}
+
+function enableTransitions() {
+    dom.body.style.transition = "opacity 1.2s ease, transform 0.2s ease";
+    dom.buttons().forEach(btn => btn.style.transition = "all 0.3s ease");
+}
+
+function disableEffects() {
+    state.animations = false;
+    state.parallax = false;
+    state.glow = false;
+}
+
+function enableEffects() {
+    if (!state.stealthMode) {
+        state.animations = true;
+        state.parallax = true;
+        state.glow = true;
+    }
 }
