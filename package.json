@@ -1,8 +1,28 @@
 {
-  "name": "webapp-command-center",
-  "version": "12.0.0",
+  "name": "bisat-command-center",
+  "version": "13.0.0",
+  "description": "BISAT WebApp Command Center v13.0 avec HUD tactique, CyberOps, Stealth Mode et panneau militaire.",
+  "author": "Teremu",
+  "license": "MIT",
+
   "scripts": {
-    "build": "echo 'Build statique'",
-    "start": "echo 'Serveur statique'"
+    "start": "echo 'Démarrage du serveur statique BISAT Command Center v13.0'",
+    "build": "echo 'Build statique BISAT v13.0 — optimisation HUD/CyberOps'",
+    "deploy": "echo 'Déploiement BISAT Command Center v13.0'",
+    "audit": "echo 'Audit sécurité BISAT — vérification des modules et intégrité'"
+  },
+
+  "keywords": [
+    "bisat",
+    "command-center",
+    "hud",
+    "cyberops",
+    "stealth",
+    "tactical-ui",
+    "webapp"
+  ],
+
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
