@@ -2,66 +2,113 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>WebApp Command Center</title>
+    <title>BisAT WebApp — Command Center v13.0</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- CSP de base (à renforcer côté serveur) -->
+    <!-- CSP de base -->
     <meta http-equiv="Content-Security-Policy"
           content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
 
-    <meta name="description" content="WebApp Command Center avec contrôle des effets, performances et thème.">
+    <meta name="description" content="BISAT WebApp Command Center avec HUD tactique, CyberOps et Stealth Mode.">
 
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
     <noscript>
         <div class="noscript-warning">
             Cette WebApp nécessite JavaScript pour fonctionner correctement.
         </div>
     </noscript>
 
+    <!-- ----------------------------------------------------------
+         PANEL LATERAL — COMMAND CENTER
+    ----------------------------------------------------------- -->
+    <aside id="command-panel">
+        <h2>COMMAND CENTER</h2>
+
+        <button id="toggle-theme">Thème (clair/sombre)</button>
+        <button id="toggle-perf">Mode Performance</button>
+
+        <button id="toggle-animations">Animations</button>
+        <button id="toggle-parallax">Parallax</button>
+        <button id="toggle-glow">Glow dynamique</button>
+
+        <button id="toggle-hud">HUD (ON/OFF)</button>
+        <button id="toggle-cyberops">CyberOps (ON/OFF)</button>
+        <button id="toggle-stealth">Stealth Mode</button>
+
+        <h3>Logs système</h3>
+        <div id="log-console" class="log-console" aria-live="polite"></div>
+    </aside>
+
+    <!-- ----------------------------------------------------------
+         HEADER PRINCIPAL
+    ----------------------------------------------------------- -->
     <header>
-        <h1>WebApp — Command Center</h1>
+        <h1>BISAT WebApp — Command Center</h1>
         <p>Contrôle avancé de l’interface, des performances et des effets.</p>
     </header>
 
+    <!-- ----------------------------------------------------------
+         HUD TACTIQUE (overlay)
+    ----------------------------------------------------------- -->
+    <div id="hud-overlay">
+        <h3>HUD TACTIQUE</h3>
+
+        <div class="hud-item">FPS <span id="fps-display" class="hud-value">0</span></div>
+        <div class="hud-item">Scroll <span id="scroll-speed-display" class="hud-value">0</span></div>
+        <div class="hud-item">HUD <span id="hud-status" class="hud-value">ONLINE</span></div>
+        <div class="hud-item">CyberOps <span id="cyber-status" class="hud-value">IDLE</span></div>
+        <div class="hud-item">Stealth <span id="stealth-status" class="hud-value">OFF</span></div>
+        <div class="hud-item">Perf <span id="perf-status" class="hud-value">OFF</span></div>
+    </div>
+
+    <!-- ----------------------------------------------------------
+         CONTENU PRINCIPAL
+    ----------------------------------------------------------- -->
     <main>
         <section class="main-actions">
             <button id="primary-action">Action principale</button>
         </section>
 
         <section id="command-center" class="command-center" aria-label="Panneau de contrôle WebApp">
-            <h2>Command Center</h2>
+            <h2>Command Center (Legacy)</h2>
 
             <div class="cc-grid">
                 <div class="cc-panel">
                     <h3>Thème & Mode</h3>
-                    <button id="toggle-theme">Basculer thème (clair/sombre)</button>
-                    <button id="toggle-perf">Mode performance (ON/OFF)</button>
+                    <button id="toggle-theme">Basculer thème</button>
+                    <button id="toggle-perf">Mode performance</button>
                 </div>
 
                 <div class="cc-panel">
                     <h3>Effets visuels</h3>
-                    <button id="toggle-animations">Animations (ON/OFF)</button>
-                    <button id="toggle-parallax">Parallax (ON/OFF)</button>
-                    <button id="toggle-glow">Glow dynamique (ON/OFF)</button>
+                    <button id="toggle-animations">Animations</button>
+                    <button id="toggle-parallax">Parallax</button>
+                    <button id="toggle-glow">Glow dynamique</button>
                 </div>
 
                 <div class="cc-panel">
                     <h3>Statut système</h3>
-                    <p>FPS estimé : <span id="fps-display">--</span></p>
+                    <p>FPS : <span id="fps-display">--</span></p>
                     <p>Scroll speed : <span id="scroll-speed-display">--</span></p>
                     <p>Perf mode : <span id="perf-status">OFF</span></p>
                 </div>
 
                 <div class="cc-panel">
                     <h3>Logs</h3>
-                    <div id="log-console" class="log-console" aria-live="polite"></div>
+                    <div id="log-console" class="log-console"></div>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- ----------------------------------------------------------
+         JS PRINCIPAL
+    ----------------------------------------------------------- -->
     <script src="app.js" defer></script>
+
 </body>
 </html>
