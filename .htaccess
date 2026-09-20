@@ -1,0 +1,45 @@
+# ----------------------------------------------------------
+# BISAT — .htaccess v13.2
+# Protection militaire / SecureOps / Anti-tampering
+# ----------------------------------------------------------
+
+# Désactiver l’indexation des répertoires
+Options -Indexes
+
+# Protection des fichiers sensibles
+<FilesMatch "(package.json|manifest.json|service-worker.js|bisat.config.json)">
+    Require all denied
+</FilesMatch>
+
+# Protection SecureOps
+<Directory "/secureops">
+    Require all denied
+</Directory>
+
+# Désactiver l’accès aux modules internes
+<Directory "/modules">
+    Require all denied
+</Directory>
+
+# Désactiver l’accès aux logs
+<Directory "/logs">
+    Require all denied
+</Directory>
+
+# Activer la compression militaire
+AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
+
+# Activer le cache tactique
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 7 days"
+    ExpiresByType application/javascript "access plus 7 days"
+    ExpiresByType image/png "access plus 30 days"
+    ExpiresByType image/svg+xml "access plus 30 days"
+</IfModule>
+
+# Protection anti-hotlink
+RewriteEngine On
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !example.com [NC]
+RewriteRule \.(png|jpg|jpeg|gif|svg)$ - [F]
