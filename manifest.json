@@ -1,9 +1,49 @@
 {
-  "name": "WebApp Command Center",
-  "short_name": "WebAppCC",
+  "name": "BISAT WebApp — Command Center",
+  "short_name": "BISAT-CC",
+  "description": "Interface tactique BISAT v13.0 avec HUD, CyberOps, Stealth Mode et Command Center militaire.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#f7f7f7",
-  "theme_color": "#0066ff",
-  "icons": []
+  "orientation": "portrait",
+  "background_color": "#0b0f14",
+  "theme_color": "#00ffa0",
+  "categories": ["utilities", "productivity", "security"],
+  "prefer_related_applications": false,
+
+  "icons": [
+    {
+      "src": "/icons/bisat-cc-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/bisat-cc-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/bisat-cc-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+
+  "screenshots": [
+    {
+      "src": "/screenshots/hud-tactique.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "HUD tactique v13.0"
+    },
+    {
+      "src": "/screenshots/command-center.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Panneau Command Center"
+    }
+  ]
 }
